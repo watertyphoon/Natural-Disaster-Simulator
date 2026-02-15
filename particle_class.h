@@ -11,6 +11,7 @@ class Particles {
 		float velocity;
 		int column;
 		int row;
+		bool stationary;
 	public:
 		Particles();
 		Particles(float userGrav, float userVelo, int useColumn, int userRow);
@@ -21,5 +22,21 @@ class Particles {
 		float getVelocity() const;
 		int getColumn() const;
 		int getRow() const;
+
+		enum type {
+			AIR,
+			DUST,
+			FIRE,
+			WATER,
+			EARTH, 
+			LIGHTNING,
+			DIRT,
+			//Dog,
+		};
+		
+		//Are they voids? Doesn't specify
+		void physics();
+		void touch();
+
 };
 
