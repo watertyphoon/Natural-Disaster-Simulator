@@ -8,18 +8,22 @@ using namespace std;
 class Particles {
 	private:
 		float gravity;
-		float velocity;
+		float veloX;
+		float veloY;
 		int column;
 		int row;
+		int lifetime;
 		bool stationary;
 	public:
 		Particles();
-		Particles(float userGrav, float userVelo, int useColumn, int userRow);
+		Particles(float userGrav,int useColumn, int userRow);
 		void setGravity(float userGrav);
-		void setVelocity(float userVelo);
+		void setVelocity(float userX, float userY);
 		void setPosition(int userColumn, int userRow);
+
 		float getGravity() const;
-		float getVelocity() const;
+		float getVeloX() const;
+		float getVeloY() const;
 		int getColumn() const;
 		int getRow() const;
 
@@ -30,13 +34,14 @@ class Particles {
 			WATER,
 			EARTH, 
 			LIGHTNING,
-			DIRT,
+			DIRT
 			//Dog,
 		};
+		void setType(type parType);
 		
 		//Are they voids? Doesn't specify
 		void physics();
-		void touch();
+		void touch();//touch who????
 
 };
 
