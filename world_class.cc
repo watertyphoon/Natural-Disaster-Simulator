@@ -1,20 +1,20 @@
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
+#include "/public/colors.h"
 #include "world_class.h"
+
 using namespace std;
 
 World::World() {
 	size_row = 0;
 	size_col = 0;
-	map_row = 0;
-	map_col = 0;
+	//vector<vector<char>>
+	worldMap = {};
 }
 
 World::World(int sRow, int sCol, char mRow, char mCol) {
 	size_row = sRow;
 	size_col = sCol;
-	map_row = mRow;
-	map_col = mCol;
 }
 
 void World::setSize_row(int sRow) {
@@ -25,13 +25,6 @@ void World::setSize_col(int sCol) {
    size_col = sCol;
 }
 
-void World::setMap_row(char mRow) {
-	map_row = mRow;
-}
-
-void World::setMap_col(char mCol) {
-	map_col = mCol;
-}
 
 int World::getSize_row() const {
 	return size_row;
@@ -41,10 +34,30 @@ int World::getSize_col() const {
 	return size_col;
 }
 
-int World::getMap_row() const {
-	return map_row;
+char getLocation(vector<vector<char>>& map, size_t row, size_t col) {
+	if (row >= map.size()) return ' ';
+	if (col >= map.at(row).size()) return ' ';
+	return map.at(row).at(col);
 }
 
-int World::getMap_col() const {
-	return map_col;
+void setLocation(vector<vector<char>>& map, size_t row, size_t col, char c) {
+	if (row >= map.size()) return;
+	if (col >= map.at(row).size()) return;
+	map.at(row).at(col) = c;
+}
+
+void printMap(vector<vector<char>>& map, size_t row, size_t col) {
+	clearscreen();
+	show_cursor(true);
+	movecursor(0,0);
+	
+	for (int i = 0; i < map.size(); i++) {
+		for (int j = 0; j < map.at(i).size(); i++) {
+			if (i == row and j = col)
+				cout << ' ' << endl;
+			else cout << ' ' << endl; //CHANGE EVENTUALLY
+		}
+	}
+
+	show_cursor(false);
 }
