@@ -28,6 +28,7 @@ class Particles {
 		float getVeloY() const;
 		int getColumn() const;
 		int getRow() const;
+		void aging();
 
 		enum type {
 			AIR,
