@@ -10,6 +10,7 @@ Particles::Particles() {
 	row = 0;
 	column = 0;
 	stationary = true;
+	lifetime = 0;
 }
 Particles::Particles(float userGrav, int userColumn, int userRow) {
 	gravity = userGrav;
@@ -34,9 +35,14 @@ void Particles::setType(type parType) {
 			veloX = 0;//velocity is always cell per tick
 			veloY = 1;//positive is falling
 			lifetime = -1;//-1 means infinite so no die
+			stationary = false;
 		//case type::DUST:
 		//case type::FIRE:
-		//case type::EARTH:
+		case type::EARTH:
+			veloX = 0;
+			veloY = 0;
+			lifetime = -1;
+			stationary = true;
 		//case type::WATER:
 		//case type::LIGHTNING:
 	}
@@ -55,4 +61,7 @@ int Particles::getColumn() const {
 }
 int Particles::getRow() const {
 	return row;
+}
+void physics(vector<vector<char>>& map) {
+
 }

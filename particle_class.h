@@ -40,7 +40,7 @@ class Particles {
 		void setType(type parType);
 		
 		//Are they voids? Doesn't specify
-		void physics();
+		void physics(vector<vector<char>>& map);
 		void touch();//touch who????
 
 };
