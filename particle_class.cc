@@ -50,6 +50,9 @@ void Particles::setType(type parType) {
 void Particles::addToList(Particles& userParticle) {
 	allPart.emplace_back(userParticle);
 }
+void Particles::aging() {
+	lifetime - 1;
+}
 float Particles::getGravity() const {
 	return gravity;
 }
@@ -66,5 +69,12 @@ int Particles::getRow() const {
 	return row;
 }
 void Particles::jiggle_physics(vector<vector<char>>& map) {
-
+	int newRow = 0;
+	int newCol = 0;
+	for(auto& temp : allPart) {
+		newRow = temp.getRow() + this -> veloX;
+		newCol = temp.getColumn() + this -> veloY;
+		temp.setPosition(newCol, newRow);
+		temp.aging();
+	}
 }
