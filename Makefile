@@ -1,6 +1,6 @@
 a.out: main.o particle_class.o game_class.o world_class.o
 	g++ main.o particle_class.o game_class.o world_class.o
-main.o: main.cc particle_class.h game_class.h world_clas.h
+main.o: main.cc particle_class.h game_class.h world_class.h
 	g++ -c main.cc
 particle_class.o: particle_class.cc particle_class.h
 	g++ -c particle_class.cc

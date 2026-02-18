@@ -2,6 +2,6 @@
 #include <vector>         // IWYU pragma: keep
 using namespace std;
 
-int main() {
+void letmedie() {
 	cout << "Hello World!" << endl;
 }
