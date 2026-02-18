@@ -47,6 +47,9 @@ void Particles::setType(type parType) {
 		//case type::LIGHTNING:
 	}
 }
+void Particles::addToList(Particles& userParticle) {
+	allPart.emplace_back(userParticle);
+}
 float Particles::getGravity() const {
 	return gravity;
 }
@@ -62,6 +65,6 @@ int Particles::getColumn() const {
 int Particles::getRow() const {
 	return row;
 }
-void physics(vector<vector<char>>& map) {
+void Particles::jiggle_physics(vector<vector<char>>& map) {
 
 }

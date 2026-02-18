@@ -2,11 +2,13 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <list>
 using namespace std;
 
 
 class Particles {
 	private:
+		list <Particles> allPart; 
 		float gravity;
 		float veloX;
 		float veloY;
@@ -20,7 +22,7 @@ class Particles {
 		void setGravity(float userGrav);
 		void setVelocity(float userX, float userY);
 		void setPosition(int userColumn, int userRow);
-
+		void addToList(Particles& userParticle);
 		float getGravity() const;
 		float getVeloX() const;
 		float getVeloY() const;
@@ -40,8 +42,10 @@ class Particles {
 		void setType(type parType);
 		
 		//Are they voids? Doesn't specify
-		void physics(vector<vector<char>>& map);
+		void jiggle_physics(vector<vector<char>>& map);
 		void touch();//touch who????
 
 };
+
+
 
