@@ -9,13 +9,7 @@ class World {
 	private:
 		int size_row;
 		int size_col;
-		vector<vector<char>> worldMap = {
-			{'*', '*', '*', '*'},
-			{'*', '*', '*', '*'},
-			{'*', '*', '*', '*'},
-	
-		};
-		list <Particles> allPart; 
+		vector<vector<char>> worldMap = {};
 	public:
 		World();
 		World(int sRow, int sCol, char mRow, char mCol);
