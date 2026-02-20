@@ -80,6 +80,8 @@ void Particles::setType(particleType parType) {
 			r = 219;
 			g = 22;
 			b = 22;
+			
+
 			break;
 			//How do lighting strucks???
 		case particleType::EARTH:
@@ -113,6 +115,11 @@ void Particles::setType(particleType parType) {
 }
 void Particles::aging() {
 	lifetime = lifetime - 1;
+	if (this-> type == FIRE) {
+		Particles spark;
+		spark.setType(LIGHTNING);
+	}
+
 }
 float Particles::getGravity() const {
 	return gravity;
