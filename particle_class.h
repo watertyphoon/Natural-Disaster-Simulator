@@ -8,7 +8,6 @@ using namespace std;
 
 class Particles {
 	private:
-		list <Particles> allPart; 
 		float gravity;
 		float veloX;
 		float veloY;

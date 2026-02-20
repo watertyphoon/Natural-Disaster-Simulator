@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "particle_class.h"
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
 using namespace std;
@@ -14,6 +15,7 @@ class World {
 			{'*', '*', '*', '*'},
 	
 		};
+		list <Particles> allPart; 
 	public:
 		World();
 		World(int sRow, int sCol, char mRow, char mCol);
