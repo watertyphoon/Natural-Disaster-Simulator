@@ -13,27 +13,26 @@ class World {
 		vector<vector<char>> worldMap = {};
 	public:
 		World();
-		World(int sRow, int sCol, char mRow, char mCol);
-		//vector<vector<char>> worldMap;
-		//Getters and setters
+		World(int sRow, int sCol);
+		
+
 		void setSize_row(int sRow);
 		void setSize_col(int sCol);
 		int getSize_row() const;
 		int getSize_col() const;
+		void setMap(char ch);
 
 		char getLocation(vector<vector<char>>& map, size_t row, size_t col);
 		
 		void setLocation(vector<vector<char>>& map, size_t row, size_t col, char c);
 
-		void printMap(/*vector<vector<char>>& map, size_t row, size_t col*/);
+		void printMap();
 
 		//Methods
 		
-		
-		/*int* at(int row, int col);
-		int physics(); //NOTE: Change this, this is a placeholder
+		int* at(int row, int col);
+		/*int physics(); //NOTE: Change this, this is a placeholder
 		int size();
-		int alive_count();
 		void save();
 		void load();
 */
