@@ -21,12 +21,12 @@ class Particles {
 		void setGravity(float userGrav);
 		void setVelocity(float userX, float userY);
 		void setPosition(int userColumn, int userRow);
-		void addToList(Particles& userParticle);
 		float getGravity() const;
 		float getVeloX() const;
 		float getVeloY() const;
 		int getColumn() const;
 		int getRow() const;
+		int getLifetime() const;
 		void aging();
 
 		enum type {

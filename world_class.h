@@ -42,4 +42,7 @@ class World {
 		void save();
 		void load();
 */
+		int particleSize();
+		int aliveCount();
+		void jiggle_physics(vector<vector<char>>& map);
 };
