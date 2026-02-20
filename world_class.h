@@ -7,6 +7,7 @@ using namespace std;
 
 class World {
 	private:
+		list <Particles> allPart;
 		int size_row;
 		int size_col;
 		vector<vector<char>> worldMap = {};
