@@ -119,14 +119,24 @@ int World::aliveCount() {
 	return allPart.size() - sub;
 }
 
-
 void World::jiggle_physics(vector<vector<char>>& map) {
 	int newRow = 0;
 	int newCol = 0;
-	for(auto& temp : allPart) {
-		newRow = temp.getRow() + temp.getVeloX();
-		newCol = temp.getColumn() + temp.getVeloY();
-		temp.setPosition(newCol, newRow);
-		temp.aging();
+	for(auto temp = allPart.begin(); temp != allPart.end();) {
+		newRow = temp->getRow() + temp->getVeloX();
+		newCol = temp->getColumn() + temp->getVeloY();
+		for(auto& temp2 : allPart) {
+			if (newRow == temp2.getRow() && newCol == temp2.getColumn()) {
+				temp->touch(temp2);
+			}
+		}
+		temp->aging();
+		if (temp->getLifetime() == 0) {
+			temp = allPart.erase(temp);
+		}
+		else {
+			temp->setPosition(newCol, newRow);
+			temp++;
+		}
 	}
 }

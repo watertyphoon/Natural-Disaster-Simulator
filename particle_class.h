@@ -40,10 +40,10 @@ class Particles {
 			//Dog,
 		};
 		void setType(type parType);
-		
+		void touch(Particles victim);
 		//Are they voids? Doesn't specify
-		void jiggle_physics(vector<vector<char>>& map);
-		void touch();//touch who????
+		//void jiggle_physics(vector<vector<char>>& map);
+		//void touch();//touch who????
 
 };
 
