@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <list>
+#include <cstdint>
 using namespace std;
 
 
@@ -19,6 +20,7 @@ class Particles {
 			DIRT
 			//Dog,
 		};
+		
 	private:
 		particleType type;
 		float gravity;
@@ -28,6 +30,11 @@ class Particles {
 		int row;
 		int lifetime;
 		bool stationary;
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+
+
 	public:
 		Particles();
 		Particles(float userGrav,int useColumn, int userRow);
@@ -44,6 +51,7 @@ class Particles {
 		void touch(Particles victim);
 		void setType(particleType parType);
 		particleType getType() const;
+		void setColor(uint8_t red, uint8_t green, uint8_t blue);
 		//Are they voids? Doesn't specify
 		//void jiggle_physics(vector<vector<char>>& map);
 		//void touch();//touch who????

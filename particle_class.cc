@@ -1,4 +1,5 @@
 #include "/public/read.h" // IWYU pragma: keep
+#include <cstdint>
 #include <vector>// IWYU pragma: keep
 #include "particle_class.h"
 #include <ctime>
@@ -13,6 +14,9 @@ Particles::Particles() {
 	column = 0;
 	stationary = true;
 	lifetime = 0;
+	r = 0;
+	g = 0;
+	b = 0;
 }
 Particles::Particles(float userGrav, int userColumn, int userRow) {
 	gravity = userGrav;
@@ -30,6 +34,13 @@ void Particles::setPosition(int userColumn, int userRow) {
 	row = userRow;
 	column = userColumn;
 }
+
+void Particles::setColor(uint8_t red, uint8_t green, uint8_t blue) {
+	r = red;
+	g = green;
+	b = blue;
+}
+
 void Particles::setType(particleType parType) {
 	srand(time(0));
 	this->type = parType;
@@ -39,24 +50,36 @@ void Particles::setType(particleType parType) {
 			veloY = 0;
 			lifetime = 15;
 			stationary = false;
+			r = 255;
+			g = 255;
+			b = 255;
 			break;
 		case particleType::DIRT:
 			veloX = 0;//velocity is always cell per tick
 			veloY = 1;//positive is falling
 			lifetime = -1;//-1 means infinite so no die
 			stationary = false;
+			r = 112;
+			g = 69;
+			b = 26;
 			break;
 		case particleType::DUST:
 			veloX = rand(); //Double check if this is right
 			veloY = 0;
 			lifetime = 15;
 			stationary = false;
+			r = 156;
+			g = 139;
+			b = 123;
 			break;
 		case particleType::FIRE:
 			veloX = 0;
 			veloY = 0;
 			lifetime = -1;
 			stationary = true;
+			r = 219;
+			g = 22;
+			b = 22;
 			break;
 			//How do lighting strucks???
 		case particleType::EARTH:
@@ -64,20 +87,27 @@ void Particles::setType(particleType parType) {
 			veloY = 0;
 			lifetime = -1;
 			stationary = true;
+			r = 17;
+			g = 140;
+			b = 42;
 			break;
-		//case type::WATER:
-		//case type::LIGHTNING:
 		case particleType::LIGHTNING:
 			veloX = 0;
 			veloY = 2;
 			lifetime = 10;
 			stationary = false;
+			r = 232;
+			g = 193;
+			b = 51;
 			break;
 		case particleType::WATER:
 			veloX = 0;
 			veloY = 1;
 			lifetime = 20;
 			stationary = false;
+			r = 65;
+			g = 174;
+			b = 232;
 			break;
 	}
 }
