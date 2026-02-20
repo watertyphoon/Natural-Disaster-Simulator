@@ -1,6 +1,8 @@
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>// IWYU pragma: keep
 #include "particle_class.h"
+#include <ctime>
+#include <algorithm>
 using namespace std;
 
 Particles::Particles() {
@@ -29,15 +31,29 @@ void Particles::setPosition(int userColumn, int userRow) {
 	column = userColumn;
 }
 void Particles::setType(type parType) {
+	srand(time(0));
 	switch(parType) {//TO DO: implement other type
-		//case type::AIR:
+		case type::AIR:
+			veloX = 1;
+			veloY = 0;
+			lifetime = 15;
+			stationary = false;
 		case type::DIRT:
 			veloX = 0;//velocity is always cell per tick
 			veloY = 1;//positive is falling
 			lifetime = -1;//-1 means infinite so no die
 			stationary = false;
-		//case type::DUST:
-		//case type::FIRE:
+		case type::DUST:
+			veloX = rand(); //Double check if this is right
+			veloY = 0;
+			lifetime = 15;
+			stationary = false;
+		case type::FIRE:
+			veloX = 0;
+			veloY = 0;
+			lifetime = -1;
+			stationary = true;
+			//How do lighting strucks???
 		case type::EARTH:
 			veloX = 0;
 			veloY = 0;

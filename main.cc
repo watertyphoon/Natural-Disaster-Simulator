@@ -7,6 +7,7 @@ using namespace std;
 
 int main() {
 	World w;
+	//w.setSize_row
 	w.printMap();
 	cout << "Test good" << endl;
 	show_cursor(true);
