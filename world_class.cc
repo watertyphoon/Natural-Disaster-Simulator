@@ -2,6 +2,7 @@
 #include <vector>         // IWYU pragma: keep
 #include "/public/colors.h"
 #include "world_class.h"
+#include "particle_class.h"
 
 using namespace std;
 
@@ -81,4 +82,30 @@ void World::printMap(/*vector<vector<char>>& map, size_t row, size_t col*/) {
 	}
 
 	show_cursor(false);
+}
+
+int World::particleSize() {
+	return allPart.size();
+}
+
+int World::aliveCount() {
+	int sub = 0;
+	for (const auto& temp : allPart) {
+		if (temp.getLifetime() == -1) {
+			sub++;
+		}
+	}
+	return allPart.size() - sub;
+}
+
+
+void World::jiggle_physics(vector<vector<char>>& map) {
+	int newRow = 0;
+	int newCol = 0;
+	for(auto& temp : allPart) {
+		newRow = temp.getRow() + temp.getVeloX();
+		newCol = temp.getColumn() + temp.getVeloY();
+		temp.setPosition(newCol, newRow);
+		temp.aging();
+	}
 }

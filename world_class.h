@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "particle_class.h"
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
 using namespace std;
@@ -35,4 +36,7 @@ class World {
 		void save();
 		void load();
 */
+		int particleSize();
+		int aliveCount();
+		void jiggle_physics(vector<vector<char>>& map);
 };
