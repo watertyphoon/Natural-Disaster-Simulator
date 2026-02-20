@@ -35,9 +35,13 @@ World::World() {
 	};
 }
 
-World::World(int sRow, int sCol, char mRow, char mCol) {
+World::World(int sRow, int sCol) {
 	size_row = sRow;
 	size_col = sCol;
+	worldMap.resize(size_row);
+	for (int i = 0; i < size_row; i++) {
+		 worldMap.at(i).resize(size_col);
+	}
 }
 
 void World::setSize_row(int sRow) {
@@ -68,7 +72,20 @@ void World::setLocation(vector<vector<char>>& map, size_t row, size_t col, char 
 	map.at(row).at(col) = c;
 }
 
-void World::printMap(/*vector<vector<char>>& map, size_t row, size_t col*/) {
+void World::setMap(char ch) {
+	worldMap.resize(size_row);
+	for (int i = 0; i < size_row; i++) {
+		worldMap.at(i).resize(size_col);
+	}
+
+	for (int i = 0; i < size_row; i++) {
+		for (int j = 0; j < size_col; j++) {
+			worldMap.at(i).at(j) = ch;
+		}
+	}
+}
+
+void World::printMap() {
 	clearscreen();
 	show_cursor(true);
 	movecursor(0, 0);
@@ -82,6 +99,10 @@ void World::printMap(/*vector<vector<char>>& map, size_t row, size_t col*/) {
 	}
 
 	show_cursor(false);
+}
+
+int* World::at(int row, int col) {
+	return 0; //placeholder
 }
 
 int World::particleSize() {
