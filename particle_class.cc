@@ -61,6 +61,16 @@ void Particles::setType(type parType) {
 			stationary = true;
 		//case type::WATER:
 		//case type::LIGHTNING:
+		case type::LIGHTNING:
+			veloX = 0;
+			veloY = 2;
+			lifetime = 10;
+			stationary = false;
+		case type::WATER:
+			veloX = 0;
+			veloY = 1;
+			lifetime = 20;
+			stationary = false;
 	}
 }
 void Particles::aging() {
@@ -83,4 +93,7 @@ int Particles::getRow() const {
 }
 int Particles::getLifetime() const {
 	return lifetime;
+}
+void Particles::touch(Particles victim) {
+
 }

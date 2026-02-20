@@ -6,7 +6,7 @@ particle_class.o: particle_class.cc particle_class.h
 	g++ -c particle_class.cc
 game_class.o: game_class.cc game_class.h
 	g++ -c game_class.cc
-world_class.o: world_class.cc world_class.h
+world_class.o: world_class.cc world_class.h particle_class.h
 	g++ -c world_class.cc
 clean:
 	rm -f *.o a.out core_
