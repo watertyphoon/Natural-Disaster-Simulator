@@ -9,6 +9,7 @@ using namespace std;
 World::World() {
 	size_row = 0;
 	size_col = 0;
+	list <Particles> allPart;
 	//vector<vector<char>>
 	worldMap = {
 		{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
