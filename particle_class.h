@@ -1,4 +1,5 @@
 #pragma once
+#include <compare>
 #include <iostream>
 #include <vector>
 #include <utility>
@@ -7,7 +8,19 @@ using namespace std;
 
 
 class Particles {
+	public:
+		enum particleType {
+			AIR,
+			DUST,
+			FIRE,
+			WATER,
+			EARTH, 
+			LIGHTNING,
+			DIRT
+			//Dog,
+		};
 	private:
+		particleType type;
 		float gravity;
 		float veloX;
 		float veloY;
@@ -28,19 +41,9 @@ class Particles {
 		int getRow() const;
 		int getLifetime() const;
 		void aging();
-
-		enum type {
-			AIR,
-			DUST,
-			FIRE,
-			WATER,
-			EARTH, 
-			LIGHTNING,
-			DIRT
-			//Dog,
-		};
-		void setType(type parType);
 		void touch(Particles victim);
+		void setType(particleType parType);
+		particleType getType() const;
 		//Are they voids? Doesn't specify
 		//void jiggle_physics(vector<vector<char>>& map);
 		//void touch();//touch who????

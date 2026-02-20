@@ -30,47 +30,55 @@ void Particles::setPosition(int userColumn, int userRow) {
 	row = userRow;
 	column = userColumn;
 }
-void Particles::setType(type parType) {
+void Particles::setType(particleType parType) {
 	srand(time(0));
+	this->type = parType;
 	switch(parType) {//TO DO: implement other type
-		case type::AIR:
+		case particleType::AIR:
 			veloX = 1;
 			veloY = 0;
 			lifetime = 15;
 			stationary = false;
-		case type::DIRT:
+			break;
+		case particleType::DIRT:
 			veloX = 0;//velocity is always cell per tick
 			veloY = 1;//positive is falling
 			lifetime = -1;//-1 means infinite so no die
 			stationary = false;
-		case type::DUST:
+			break;
+		case particleType::DUST:
 			veloX = rand(); //Double check if this is right
 			veloY = 0;
 			lifetime = 15;
 			stationary = false;
-		case type::FIRE:
+			break;
+		case particleType::FIRE:
 			veloX = 0;
 			veloY = 0;
 			lifetime = -1;
 			stationary = true;
+			break;
 			//How do lighting strucks???
-		case type::EARTH:
+		case particleType::EARTH:
 			veloX = 0;
 			veloY = 0;
 			lifetime = -1;
 			stationary = true;
+			break;
 		//case type::WATER:
 		//case type::LIGHTNING:
-		case type::LIGHTNING:
+		case particleType::LIGHTNING:
 			veloX = 0;
 			veloY = 2;
 			lifetime = 10;
 			stationary = false;
-		case type::WATER:
+			break;
+		case particleType::WATER:
 			veloX = 0;
 			veloY = 1;
 			lifetime = 20;
 			stationary = false;
+			break;
 	}
 }
 void Particles::aging() {
@@ -94,6 +102,17 @@ int Particles::getRow() const {
 int Particles::getLifetime() const {
 	return lifetime;
 }
+Particles::particleType Particles::getType() const {
+	return type;
+}
 void Particles::touch(Particles victim) {
-
+	if(this->type == WATER && victim.getType() == FIRE) {
+		this->setType(AIR);
+	}
+	else if(this->type == LIGHTNING && victim.getType() == WATER) {
+		victim.setType(LIGHTNING);
+	}
+	else if(this->type == LIGHTNING && victim.getType() == EARTH) {
+		victim.setType(DIRT);
+	}
 }
