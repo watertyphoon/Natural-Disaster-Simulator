@@ -15,4 +15,5 @@ class Game {
 		Game();
 		void render();
 		void run();
+		void FrameRate();
 };

@@ -10,4 +10,7 @@ Game::Game() {
 	World w(screen_size.front().first, screen_size.front().second);
 	frame = 0;
 }
+void Game::FrameRate() {
+	frame++;
+}
 

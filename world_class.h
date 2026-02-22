@@ -3,6 +3,7 @@
 #include "particle_class.h"
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
+#include "game_class.h"
 using namespace std;
 
 class World {
@@ -11,6 +12,7 @@ class World {
 		int size_row;
 		int size_col;
 		vector<vector<char>> worldMap = {};
+		Game framerate;
 	public:
 		World();
 		World(int sRow, int sCol);

@@ -4,6 +4,7 @@
 #include "world_class.h"
 #include "particle_class.h"
 #include <ctime>
+#include "game_class.h"
 #include <algorithm>
 using namespace std;
 
@@ -121,6 +122,7 @@ int World::aliveCount() {
 }
 
 void World::jiggle_physics(vector<vector<char>>& map) {
+	framerate.FrameRate();
 	int newRow = 0;
 	int newCol = 0;
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
