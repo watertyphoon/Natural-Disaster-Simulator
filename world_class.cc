@@ -3,7 +3,8 @@
 #include "/public/colors.h"
 #include "world_class.h"
 #include "particle_class.h"
-
+#include <ctime>
+#include <algorithm>
 using namespace std;
 
 World::World() {
