@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>// IWYU pragma: keep
 #include "particle_class.h"
+#include "world_class.h"
 #include <ctime>
 #include <algorithm>
 using namespace std;

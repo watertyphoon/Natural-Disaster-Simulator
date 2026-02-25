@@ -6,6 +6,7 @@
 #include <list>
 using namespace std;
 
+
 class Game {
 	private:
 		list<pair<int, int>> screen_size;

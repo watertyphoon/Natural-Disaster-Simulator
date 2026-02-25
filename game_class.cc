@@ -1,6 +1,7 @@
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
 #include "game_class.h"
+#include "world_class.h"
 #include "/public/colors.h"
 #include <list>
 using namespace std;

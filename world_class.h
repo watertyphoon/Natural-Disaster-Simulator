@@ -3,8 +3,9 @@
 #include "particle_class.h"
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
-#include "game_class.h"
 using namespace std;
+
+class Game;
 
 class World {
 	private:
@@ -12,7 +13,7 @@ class World {
 		int size_row;
 		int size_col;
 		vector<vector<char>> worldMap = {};
-		Game framerate;
+		Game* framerate;
 	public:
 		World();
 		World(int sRow, int sCol);
@@ -33,8 +34,7 @@ class World {
 		//Methods
 		
 		int* at(int row, int col);
-		/*int physics(); //NOTE: Change this, this is a placeholder
-		int size();
+		/*int size();
 		void save();
 		void load();
 */
