@@ -1,4 +1,5 @@
 #include "/public/read.h" // IWYU pragma: keep
+#include <memory>
 #include <vector>         // IWYU pragma: keep
 #include "/public/colors.h"
 #include "world_class.h"
@@ -103,9 +104,14 @@ void World::printMap() {
 	show_cursor(false);
 }
 
-int* World::at(int row, int col) {
-	if ( == row)
-	return 0; //placeholder
+Particles* World::at(int row, int col){
+	for(auto temp = allPart.begin(); temp != allPart.end();) {
+		if(temp->getRow() == row && temp->getColumn() == col) {
+			Particles* part = &*temp;	
+			return part;
+		}
+	}
+		return nullptr; //placeholder
 }
 
 int World::particleSize() {

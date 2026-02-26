@@ -33,7 +33,7 @@ class World {
 
 		//Methods
 		
-		int* at(int row, int col);
+		Particles* at(int row, int col);
 		/*int size();
 		void save();
 		void load();
