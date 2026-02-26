@@ -104,6 +104,7 @@ void World::printMap() {
 }
 
 int* World::at(int row, int col) {
+	if ( == row)
 	return 0; //placeholder
 }
 
