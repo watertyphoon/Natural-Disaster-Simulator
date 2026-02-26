@@ -9,7 +9,7 @@ using namespace std;
 
 class Game {
 	private:
-		list<pair<int, int>> screen_size;
+		pair<int, int> screen_size;
 		World world();
 		int frame = 0;
 	public:
