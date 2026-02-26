@@ -122,7 +122,7 @@ int World::aliveCount() {
 }
 
 void World::jiggle_physics(vector<vector<char>>& map) {
-	framerate.FrameRate();
+	framerate->FrameRate();
 	int newRow = 0;
 	int newCol = 0;
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
