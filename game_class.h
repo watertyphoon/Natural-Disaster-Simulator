@@ -15,6 +15,6 @@ class Game {
 	public:
 		Game();
 		void render();
-		void run();
+		void sprint();
 		void FrameRate();
 };

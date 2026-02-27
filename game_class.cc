@@ -1,4 +1,5 @@
 #include "/public/read.h" // IWYU pragma: keep
+#include <cctype>
 #include <vector>         // IWYU pragma: keep
 #include "game_class.h"
 #include "world_class.h"
@@ -28,7 +29,49 @@ void Game::render() {
 		//TODO: print out particle with bg colors
 	}
 }
-void Game::run() {
-
+void Game::sprint() {
+	//here goes the splash screen
+	float fps = 100000;
+	bool gameState = false;
+	set_raw_mode(true);
+	show_cursor(false);
+	World w;
+	w.printMap();
+	while(true) {
+		char userInput = toupper(quick_read());
+		if(userInput == 'E') {
+			gameState = true;
+		}
+		else if(userInput == 'P') {
+			gameState = false;
+		}
+		else if(userInput == 'Q') {
+			break;
+		}
+		else if(userInput == 'L') {
+			cout << "not implemented yet" << endl;
+			//TODO: implement method to load
+		}
+		else if(userInput == 'S') {
+			cout << "not implemente d yet" << endl;
+			//TODO: implement save method
+		}
+		else if(userInput == '+') {
+			fps += 100;
+		}
+		else if(userInput == '-') {
+			if (fps >= 100) {//this checks that fps won't go less than 0
+				fps -= 100;
+			}
+			else {
+				fps = 0;
+			}
+		}
+		else if (userInput == 'D') {
+			cout << "not implemented yet" << endl;
+			//need to implement a bridges and draw method
+		}
+		usleep(fps);
+	}
 }
 
