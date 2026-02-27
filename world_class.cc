@@ -36,6 +36,7 @@ World::World() {
 		{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
 
 	};
+	save_coords;
 }
 
 World::World(int sRow, int sCol) {
@@ -88,6 +89,11 @@ void World::setMap(char ch) {
 	}
 }
 
+vector<vector<char>> World::getMap() const {
+	return worldMap;	
+}
+
+
 void World::printMap() {
 	clearscreen();
 	show_cursor(true);
@@ -104,7 +110,7 @@ void World::printMap() {
 	show_cursor(false);
 }
 
-Particles* World::at(int row, int col){
+Particles* World::at(int row, int col) {
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
 		if(temp->getRow() == row && temp->getColumn() == col) {
 			Particles* part = &*temp;	
@@ -112,6 +118,18 @@ Particles* World::at(int row, int col){
 		}
 	}
 		return nullptr; //placeholder
+}
+
+void World::save() {
+	for(auto temp = allPart.begin(); temp != allPart.end();) {
+		save_coords.emplace_back(temp->getRow(), temp->getColumn());
+
+	}
+
+}
+
+void World::load() {
+
 }
 
 int World::particleSize() {

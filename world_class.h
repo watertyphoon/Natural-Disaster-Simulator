@@ -13,6 +13,7 @@ class World {
 		int size_row;
 		int size_col;
 		vector<vector<char>> worldMap = {};
+		list<pair<int, int>> save_coords;
 		Game* framerate;
 	public:
 		World();
@@ -25,6 +26,7 @@ class World {
 		int getSize_row() const;
 		int getSize_col() const;
 		void setMap(char ch);
+		vector<vector<char>> getMap() const;
 
 		char getLocation(vector<vector<char>>& map, size_t row, size_t col);
 		
@@ -35,10 +37,9 @@ class World {
 		//Methods
 		
 		Particles* at(int row, int col);
-		/*int size();
 		void save();
 		void load();
-*/
+		
 		int particleSize();
 		int aliveCount();
 		void jiggle_physics(vector<vector<char>>& map);
