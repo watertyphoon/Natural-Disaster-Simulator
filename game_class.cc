@@ -40,6 +40,7 @@ void Game::sprint() {
 	float fps = 100000;
 	bool gameState = false;
 	bool isPart = false;
+	char menuInput;
 	set_raw_mode(true);
 	show_cursor(false);
 	World w;
@@ -65,14 +66,44 @@ void Game::sprint() {
 				}
 			}
 			if(isPart) {//if there isn't a particle add one to location
+				Particles::particleType type;
 				party.setPosition(row, col);
 				clearscreen();
 				cout << "What type Particle would you like to place?" << endl;
 				cout << "(F)IRE (D)IRT (E)ARTH (L)IGHTNING (A)IR (W)ATER DUS(T)" << endl;
 				set_raw_mode(false);
 				show_cursor(true);
-				party.setType();
+				cin >> menuInput;
+				menuInput = toupper(menuInput);
+				if (menuInput == 'F') {
+					type = Particles::FIRE;
+				}
+				else if (menuInput == 'D') {
+					type = Particles::DIRT;
+				}
+				else if (menuInput == 'E') {
+					type = Particles::EARTH;
+				}
+				else if (menuInput == 'L') {
+					type = Particles::LIGHTNING;
+				}
+				else if (menuInput == 'A') {
+					type = Particles::AIR;
+				}
+				else if (menuInput == 'W') {
+					type = Particles::WATER;
+				}
+				else if (menuInput == 'D') {
+					type = Particles::DUST;
+				}
+				else {
+					cout << "INVALID INPUT  --- You should get glasses" << endl;
+				}
+				party.setPosition(row, col);
+				party.setType(type);
+				partList.emplace_back(party);
 			}
+			render(w);
 
 		}
 		if(userInput == 'E') {

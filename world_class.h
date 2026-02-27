@@ -22,6 +22,7 @@ class World {
 		
 
 		list <Particles> getList();
+		void addToList(Particles tempPart);
 		void setSize_row(int sRow);
 		void setSize_col(int sCol);
 		int getSize_row() const;
