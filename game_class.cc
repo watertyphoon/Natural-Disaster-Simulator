@@ -58,9 +58,9 @@ void Game::sprint() {
 		if(!gameState) {
 			set_mouse_mode(true);
 			on_mousedown([](int row, int col) { movecursor(row, col); } );//moves cursor to wherever you click
-			for(auto temp = partList.begin(); temp != partList.end();) {
+			for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 				if (temp->getRow() == row && temp->getColumn() == col) {
-					partList.erase(temp);
+					w.remove(temp);
 					isPart = false;
 					break;
 				}
@@ -101,7 +101,7 @@ void Game::sprint() {
 				}
 				party.setPosition(row, col);
 				party.setType(type);
-				partList.emplace_back(party);
+				w.addToList(party);
 			}
 			render(w);
 
