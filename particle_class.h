@@ -52,6 +52,9 @@ class Particles {
 		void setType(particleType parType);
 		particleType getType() const;
 		void setColor(uint8_t red, uint8_t green, uint8_t blue);
+		uint8_t getRed() const;
+		uint8_t getBlue() const;
+		uint8_t getGreen() const;
 		//Are they voids? Doesn't specify
 		//void jiggle_physics(vector<vector<char>>& map);
 		//void touch();//touch who????

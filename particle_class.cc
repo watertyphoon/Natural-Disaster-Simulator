@@ -154,3 +154,15 @@ void Particles::touch(Particles victim) {
 		victim.setType(DIRT);
 	}
 }
+
+uint8_t Particles::getRed() const {
+	return r;
+}
+
+uint8_t Particles::getGreen() const {
+	return g;
+}
+
+uint8_t Particles::getBlue() const {
+	return b;
+}
