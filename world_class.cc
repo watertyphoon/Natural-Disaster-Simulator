@@ -170,3 +170,7 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 		}
 	}
 }
+
+list <Particles> World::getList() {
+	return allPart;
+}

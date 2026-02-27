@@ -15,13 +15,13 @@ Game::Game() {
 void Game::FrameRate() {
 	frame++;
 }
-void Game::render() {
+void Game::render(World w) {
 	const auto [ROWS, COLS] = get_terminal_size();
-	list <Particles> partList;
+	list <Particles> partList = w.getList();
 	set_cursor_mode(false);
 	movecursor(ROWS, 0);
 	cout << GREEN << "START(e) PAUSE(p) QUIT(q) LOAD(L) SAVE(s) INCREASE_FRAME_RATE(+)";
-	cout << "DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl; 
+	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl; 
 	for(auto temp = partList.begin(); temp != partList.end();) {
 		set_cursor_mode(false);
 		setbgcolor(0,0,0);
@@ -29,26 +29,51 @@ void Game::render() {
 		//TODO: print out particle with bg colors
 	}
 }
+/*void click (int row, int col) {
+	cout << "hello" << endl;
+}*/
 void Game::sprint() {
 	//here goes the splash screen
+	const auto [ROWS, COLS] = get_terminal_size();
 	int row = 0;
 	int col = 0;
 	float fps = 100000;
 	bool gameState = false;
+	bool isPart = false;
 	set_raw_mode(true);
 	show_cursor(false);
 	World w;
+	Particles party;
+	list <Particles> partList = w.getList();
 	vector<vector<char>> m = w.getMap();
 	w.printMap();
+	char userInput = toupper(quick_read());
+	render(w);
 	while(true) {
-		char userInput = toupper(quick_read());
 		if(gameState) {
-			render();
+			render(w);
 			w.jiggle_physics(m);
 		}
 		if(!gameState) {
 			set_mouse_mode(true);
 			on_mousedown([](int row, int col) { movecursor(row, col); } );//moves cursor to wherever you click
+			for(auto temp = partList.begin(); temp != partList.end();) {
+				if (temp->getRow() == row && temp->getColumn() == col) {
+					partList.erase(temp);
+					isPart = false;
+					break;
+				}
+			}
+			if(isPart) {//if there isn't a particle add one to location
+				party.setPosition(row, col);
+				clearscreen();
+				cout << "What type Particle would you like to place?" << endl;
+				cout << "(F)IRE (D)IRT (E)ARTH (L)IGHTNING (A)IR (W)ATER DUS(T)" << endl;
+				set_raw_mode(false);
+				show_cursor(true);
+				party.setType();
+			}
+
 		}
 		if(userInput == 'E') {
 			gameState = true;

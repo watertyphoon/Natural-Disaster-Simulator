@@ -7,12 +7,6 @@
 using namespace std;
 
 int main() {
-	World w(15, 15);
-
-	w.printMap();
-	cout << "Test good" << endl;
-	w.setMap('c');
-	w.printMap();
-
-	show_cursor(true);
+Game game;
+game.sprint();
 }
