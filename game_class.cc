@@ -24,9 +24,11 @@ void Game::render(World w) {
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl; 
 	for(auto temp = partList.begin(); temp != partList.end();) {
 		set_cursor_mode(false);
-		setbgcolor(0,0,0);
+		setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
 		movecursor(temp->getColumn(), temp->getRow());
 		//TODO: print out particle with bg colors
+		cout << ' ' << endl;
+		setbgcolor(0,0,0);
 	}
 }
 /*void click (int row, int col) {
@@ -60,7 +62,7 @@ void Game::sprint() {
 			on_mousedown([](int row, int col) { movecursor(row, col); } );//moves cursor to wherever you click
 			for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 				if (temp->getRow() == row && temp->getColumn() == col) {
-					w.remove(temp);
+					w.getList().erase(temp);
 					isPart = false;
 					break;
 				}

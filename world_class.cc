@@ -179,6 +179,7 @@ void World::addToList(Particles tempPart) {
 	allPart.emplace_back(tempPart);
 }
 
-void World::remove(auto tempPart) {
-	allPart.erase(tempPart);
+void World::remove(Particles* tempParty) {
+	Particles* itParty = &*tempParty;
+	//allPart.erase(itParty);
 }
