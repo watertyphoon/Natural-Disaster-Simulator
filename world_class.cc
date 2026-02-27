@@ -36,7 +36,6 @@ World::World() {
 		{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
 
 	};
-	save_coords;
 }
 
 World::World(int sRow, int sCol) {
@@ -121,15 +120,18 @@ Particles* World::at(int row, int col) {
 }
 
 void World::save() {
-	for(auto temp = allPart.begin(); temp != allPart.end();) {
-		save_coords.emplace_back(temp->getRow(), temp->getColumn());
-
-	}
-
+	savePart = allPart;
 }
 
 void World::load() {
-
+	allPart.clear();
+	if (savePart.empty()) {
+		cout << BOLDRED << "ERROR: No save file detected" << endl; 
+		cout << BOLDWHITE << "You should probably have a save file saved in order to load a save file" << endl;
+		cout << RESET;
+	}
+	else 
+		allPart = savePart;
 }
 
 int World::particleSize() {

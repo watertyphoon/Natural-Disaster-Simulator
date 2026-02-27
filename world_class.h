@@ -10,10 +10,11 @@ class Game;
 class World {
 	private:
 		list <Particles> allPart;
+		list <Particles> savePart;
 		int size_row;
 		int size_col;
 		vector<vector<char>> worldMap = {};
-		list<pair<int, int>> save_coords;
+		//list<pair<int, int>> save_coords;
 		Game* framerate;
 	public:
 		World();
