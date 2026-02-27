@@ -39,6 +39,10 @@ void Game::sprint() {
 	w.printMap();
 	while(true) {
 		char userInput = toupper(quick_read());
+		if(gameState) {
+			render();
+			w.jiggle_physics(w.getMap());
+		}
 		if(userInput == 'E') {
 			gameState = true;
 		}
