@@ -31,22 +31,29 @@ void Game::render() {
 }
 void Game::sprint() {
 	//here goes the splash screen
+	int row = 0;
+	int col = 0;
 	float fps = 100000;
 	bool gameState = false;
 	set_raw_mode(true);
 	show_cursor(false);
 	World w;
+	vector<vector<char>> m = w.getMap();
 	w.printMap();
 	while(true) {
 		char userInput = toupper(quick_read());
 		if(gameState) {
 			render();
-			w.jiggle_physics(w.getMap());
+			w.jiggle_physics(m);
+		}
+		if(!gameState) {
+			set_mouse_mode(true);
+			on_mousedown([](int row, int col) { movecursor(row, col); } );//moves cursor to wherever you click
 		}
 		if(userInput == 'E') {
 			gameState = true;
 		}
-		else if(userInput == 'P') {
+		else if(userInput == 'P' || w.aliveCount() == 0) {
 			gameState = false;
 		}
 		else if(userInput == 'Q') {

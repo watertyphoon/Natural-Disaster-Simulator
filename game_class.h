@@ -9,11 +9,15 @@ using namespace std;
 
 class Game {
 	private:
+		//pair<int, int> mouse;
 		pair<int, int> screen_size;
 		World world();
 		int frame = 0;
 	public:
 		Game();
+		/*void click(int row, int col) {
+			mouse = {row, col};
+		}*/
 		void render();
 		void sprint();
 		void FrameRate();
