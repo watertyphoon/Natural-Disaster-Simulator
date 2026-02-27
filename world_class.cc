@@ -178,3 +178,7 @@ list <Particles> World::getList() {
 void World::addToList(Particles tempPart) {
 	allPart.emplace_back(tempPart);
 }
+
+void World::remove(auto tempPart) {
+	allPart.erase(tempPart);
+}
