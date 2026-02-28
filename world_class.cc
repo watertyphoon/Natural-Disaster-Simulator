@@ -10,10 +10,12 @@
 using namespace std;
 
 World::World() {
-	size_row = 0;
-	size_col = 0;
+	const auto [ROW, COL] = get_terminal_size();
+	size_row = ROW;
+	size_col = COL;
+	worldMap = vector<vector<char>>(ROW, vector<char>(COL, ' '));
 	//vector<vector<char>>
-	worldMap = {
+	/*worldMap = {
 		{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
 		{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 		{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -35,7 +37,7 @@ World::World() {
 		{' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
 		{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
 
-	};
+	}*/;
 }
 
 World::World(int sRow, int sCol) {
@@ -168,6 +170,7 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 			temp->setPosition(newCol, newRow);
 			temp++;
 		}
+		this->addToList(*temp);
 	}
 }
 
@@ -175,7 +178,7 @@ list <Particles> World::getList() {
 	return allPart;
 }
 
-void World::addToList(Particles tempPart) {
+void World::addToList(Particles &tempPart) {
 	allPart.emplace_back(tempPart);
 }
 

@@ -13,6 +13,8 @@ class Game {
 		pair<int, int> screen_size;
 		World world();
 		int frame = 0;
+		int mRow;
+		int mCol;
 	public:
 		Game();
 		/*void click(int row, int col) {
@@ -21,4 +23,5 @@ class Game {
 		void render(World w);
 		void sprint();
 		void FrameRate();
+		void pause();
 };

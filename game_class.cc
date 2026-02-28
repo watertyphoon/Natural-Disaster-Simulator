@@ -1,5 +1,6 @@
 #include "/public/read.h" // IWYU pragma: keep
 #include <cctype>
+#include <unistd.h>
 #include <vector>         // IWYU pragma: keep
 #include "game_class.h"
 #include "world_class.h"
@@ -16,33 +17,43 @@ void Game::FrameRate() {
 	frame++;
 }
 void Game::render(World w) {
-	const auto [ROWS, COLS] = get_terminal_size();
+	//const auto [ROWS, COLS] = get_terminal_size();
 	list <Particles> partList = w.getList();
 	set_cursor_mode(false);
-	movecursor(ROWS, 0);
+	/*movecursor(0, w.getSize_col());
+	cout << BLUE << "PARTICLE: " << endl;*/
+	movecursor(w.getSize_row(), 0);
 	cout << GREEN << "START(e) PAUSE(p) QUIT(q) LOAD(L) SAVE(s) INCREASE_FRAME_RATE(+)";
-	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl; 
-	for(auto temp = partList.begin(); temp != partList.end();) {
-		set_cursor_mode(false);
-		setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
-		movecursor(temp->getColumn(), temp->getRow());
-		//TODO: print out particle with bg colors
-		cout << ' ' << endl;
-		setbgcolor(0,0,0);
+	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;
+	if(!partList.empty()){ 
+		for(auto temp = partList.begin(); temp != partList.end();) {
+			//set_cursor_mode(false);
+			setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
+			movecursor(temp->getRow(), temp->getColumn());
+			//TODO: print out particle with bg colors
+			set_raw_mode(false);
+			cout << ' ' << endl;
+			cout << RESET << endl;
+			setbgcolor(0,0,0);
+		}
 	}
 }
 /*void click (int row, int col) {
-	cout << "hello" << endl;
+	//movecursor(row, col);
+	mRow = row;
+	mCol = col;
 }*/
 void Game::sprint() {
 	//here goes the splash screen
+	//clearscreen();
 	const auto [ROWS, COLS] = get_terminal_size();
-	int row = 0;
-	int col = 0;
+	int mRow = 0;
+	int mCol = 0;
 	float fps = 100000;
 	bool gameState = false;
-	bool isPart = false;
+	bool isPart = true;
 	char menuInput;
+	int scroll = 0;
 	set_raw_mode(true);
 	show_cursor(false);
 	World w;
@@ -50,21 +61,103 @@ void Game::sprint() {
 	list <Particles> partList = w.getList();
 	vector<vector<char>> m = w.getMap();
 	w.printMap();
-	char userInput = toupper(quick_read());
 	render(w);
+	usleep(100000);
 	while(true) {
+		set_raw_mode(false);
+		movecursor(0, w.getSize_col()-18);
+		cout << MAGENTA << "PARTICLE: ";
+		if(scroll == 0) {
+			cout << "FIRE     " << endl;
+		}
+		else if (scroll == 1) {
+			cout << "DIRT     " << endl;
+		}
+		else if (scroll == 2) {
+			cout << "EARTH    " << endl;
+		}
+		else if (scroll == 3) {
+			cout << "LIGHTNING" << endl;
+		}
+		else if (scroll == 4) {
+			cout << "AIR      " << endl;
+		}
+		else if (scroll == 5) {
+			cout << "WATER    " << endl;
+		}
+		else if (scroll == 6) {
+			cout << "DUST     " << endl;
+		}
+		cout << RESET << endl;
+		set_raw_mode(true);
+		char userInput = toupper(quick_read());
 		if(gameState) {
 			render(w);
 			w.jiggle_physics(m);
 		}
+		set_mouse_mode(true);
 		if(!gameState) {
+			on_mousedown([&](int row, int col){
+					movecursor(row, col);
+					mRow = row;
+					mCol = col;
+					});
+			if(scroll == 0) {
+				party.setType(Particles::FIRE);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 1) {
+				party.setType(Particles::DIRT);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 2) {
+				party.setType(Particles::EARTH);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 3) {
+				party.setType(Particles::LIGHTNING);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 4) {
+				party.setType(Particles::AIR);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 5) {
+				party.setType(Particles::WATER);
+				party.setPosition(mCol, mRow);
+			}
+			else if(scroll == 6) {
+				party.setType(Particles::DUST);
+				party.setPosition(mCol, mRow);
+			}
+			w.addToList(party);
+		}
+		if(userInput == 'W' || userInput == UP_ARROW){
+			if(scroll + 1 > 6) {
+				scroll = 0;
+			}
+			else {
+				scroll++;
+			}
+		}
+		else if(userInput == 'S' || userInput == DOWN_ARROW) {
+			if (scroll - 1 < 0) {
+				scroll = 6;
+			}
+			else {
+				scroll--;
+			}
+		}
+		/*else {
 			set_mouse_mode(true);
-			on_mousedown([](int row, int col) { movecursor(row, col); } );//moves cursor to wherever you click
-			for(auto temp = w.getList().begin(); temp != w.getList().end();) {
-				if (temp->getRow() == row && temp->getColumn() == col) {
-					w.getList().erase(temp);
-					isPart = false;
-					break;
+			on_mousedown(click);//moves cursor to wherever you click
+			if(!partList.empty()) {
+				for(auto temp = w.getList().begin(); temp != w.getList().end();) {
+					if (temp->getRow() == row && temp->getColumn() == col) {
+						w.getList().erase(temp);
+						isPart = false;
+						//break;
+					}
 				}
 			}
 			if(isPart) {//if there isn't a particle add one to location
@@ -104,15 +197,18 @@ void Game::sprint() {
 				party.setPosition(row, col);
 				party.setType(type);
 				w.addToList(party);
+				w.printMap();
 			}
 			render(w);
-
-		}
-		if(userInput == 'E') {
+		}*/
+		/*if(userInput == 'E') {
 			gameState = true;
-		}
-		else if(userInput == 'P' || w.aliveCount() == 0) {
+		}*/
+		if(userInput == 'P' || w.aliveCount() == 0) {
 			gameState = false;
+		}
+		else if(userInput == 'E') {
+			gameState = true;
 		}
 		else if(userInput == 'Q') {
 			break;

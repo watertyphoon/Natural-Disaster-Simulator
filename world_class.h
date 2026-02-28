@@ -3,6 +3,7 @@
 #include "particle_class.h"
 #include "/public/read.h" // IWYU pragma: keep
 #include <vector>         // IWYU pragma: keep
+#include "/public/colors.h"
 using namespace std;
 
 class Game;
@@ -13,7 +14,7 @@ class World {
 		list <Particles> savePart;
 		int size_row;
 		int size_col;
-		vector<vector<char>> worldMap = {};
+		vector<vector<char>> worldMap;
 		//list<pair<int, int>> save_coords;
 		Game* framerate;
 	public:
@@ -22,7 +23,7 @@ class World {
 		
 
 		list <Particles> getList();
-		void addToList(Particles tempPart);
+		void addToList(Particles &tempPart);
 		void remove(Particles* tempParty);
 		void setSize_row(int sRow);
 		void setSize_col(int sCol);
