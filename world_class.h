@@ -22,7 +22,7 @@ class World {
 		World(int sRow, int sCol);
 		
 
-		list <Particles> getList();
+		list <Particles>& getList();
 		void addToList(Particles &tempPart);
 		void remove(Particles* tempParty);
 		void setSize_row(int sRow);

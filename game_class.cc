@@ -4,6 +4,7 @@
 #include <vector>         // IWYU pragma: keep
 #include "game_class.h"
 #include "world_class.h"
+#include "particle_class.h"
 #include "/public/colors.h"
 #include <list>
 using namespace std;
@@ -16,24 +17,23 @@ Game::Game() {
 void Game::FrameRate() {
 	frame++;
 }
-void Game::render(World w) {
+void Game::render(World &w) {
 	//const auto [ROWS, COLS] = get_terminal_size();
-	list <Particles> partList = w.getList();
+	//list <Particles> partList = w.getList();
 	set_cursor_mode(false);
 	/*movecursor(0, w.getSize_col());
 	cout << BLUE << "PARTICLE: " << endl;*/
 	movecursor(w.getSize_row(), 0);
-	cout << GREEN << "START(e) PAUSE(p) QUIT(q) LOAD(L) SAVE(s) INCREASE_FRAME_RATE(+)";
+	cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;
-	if(!partList.empty()){ 
-		for(auto temp = partList.begin(); temp != partList.end();) {
-			//set_cursor_mode(false);
+	if(!w.getList().empty()){ 
+		for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 			setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
 			movecursor(temp->getRow(), temp->getColumn());
-			//TODO: print out particle with bg colors
-			set_raw_mode(false);
-			cout << ' ' << endl;
-			cout << RESET << endl;
+			//set_raw_mode(false);
+			//movecursor(10, 10);
+			//cout << temp->getRow() << " " << temp->getColumn() << endl;
+			cout << ' ' << RESET << endl;
 			setbgcolor(0,0,0);
 		}
 	}
@@ -63,10 +63,12 @@ void Game::sprint() {
 	w.printMap();
 	render(w);
 	usleep(100000);
+	set_mouse_mode(true);
 	while(true) {
 		set_raw_mode(false);
 		movecursor(0, w.getSize_col()-18);
 		cout << MAGENTA << "PARTICLE: ";
+		set_raw_mode(true);
 		if(scroll == 0) {
 			cout << "FIRE     " << endl;
 		}
@@ -88,20 +90,25 @@ void Game::sprint() {
 		else if (scroll == 6) {
 			cout << "DUST     " << endl;
 		}
+		else if (scroll == 7) {
+			cout << "DOG      " << endl;
+		}
 		cout << RESET << endl;
 		set_raw_mode(true);
 		char userInput = toupper(quick_read());
 		if(gameState) {
 			render(w);
 			w.jiggle_physics(m);
-		}
-		set_mouse_mode(true);
+		}	
+		//set_mouse_mode(true);
 		if(!gameState) {
 			on_mousedown([&](int row, int col){
 					movecursor(row, col);
 					mRow = row;
 					mCol = col;
 					});
+			movecursor(ROWS/2, COLS/2);
+			cout << mRow << " " << mCol << endl;
 			if(scroll == 0) {
 				party.setType(Particles::FIRE);
 				party.setPosition(mCol, mRow);
@@ -130,10 +137,15 @@ void Game::sprint() {
 				party.setType(Particles::DUST);
 				party.setPosition(mCol, mRow);
 			}
+			else if(scroll == 7) {
+				party.setType(Particles::DOG);
+				party.setPosition(mCol, mRow);
+			}
+			cout << party.getType() << " " << party.getRow() << " " << party.getColumn() << endl; 
 			w.addToList(party);
 		}
 		if(userInput == 'W' || userInput == UP_ARROW){
-			if(scroll + 1 > 6) {
+			if(scroll ==  7) {
 				scroll = 0;
 			}
 			else {
@@ -141,69 +153,13 @@ void Game::sprint() {
 			}
 		}
 		else if(userInput == 'S' || userInput == DOWN_ARROW) {
-			if (scroll - 1 < 0) {
-				scroll = 6;
+			if (scroll == 0) {
+				scroll = 7;
 			}
 			else {
 				scroll--;
 			}
 		}
-		/*else {
-			set_mouse_mode(true);
-			on_mousedown(click);//moves cursor to wherever you click
-			if(!partList.empty()) {
-				for(auto temp = w.getList().begin(); temp != w.getList().end();) {
-					if (temp->getRow() == row && temp->getColumn() == col) {
-						w.getList().erase(temp);
-						isPart = false;
-						//break;
-					}
-				}
-			}
-			if(isPart) {//if there isn't a particle add one to location
-				Particles::particleType type;
-				party.setPosition(row, col);
-				clearscreen();
-				cout << "What type Particle would you like to place?" << endl;
-				cout << "(F)IRE (D)IRT (E)ARTH (L)IGHTNING (A)IR (W)ATER DUS(T)" << endl;
-				set_raw_mode(false);
-				show_cursor(true);
-				cin >> menuInput;
-				menuInput = toupper(menuInput);
-				if (menuInput == 'F') {
-					type = Particles::FIRE;
-				}
-				else if (menuInput == 'D') {
-					type = Particles::DIRT;
-				}
-				else if (menuInput == 'E') {
-					type = Particles::EARTH;
-				}
-				else if (menuInput == 'L') {
-					type = Particles::LIGHTNING;
-				}
-				else if (menuInput == 'A') {
-					type = Particles::AIR;
-				}
-				else if (menuInput == 'W') {
-					type = Particles::WATER;
-				}
-				else if (menuInput == 'D') {
-					type = Particles::DUST;
-				}
-				else {
-					cout << "INVALID INPUT  --- You should get glasses" << endl;
-				}
-				party.setPosition(row, col);
-				party.setType(type);
-				w.addToList(party);
-				w.printMap();
-			}
-			render(w);
-		}*/
-		/*if(userInput == 'E') {
-			gameState = true;
-		}*/
 		if(userInput == 'P' || w.aliveCount() == 0) {
 			gameState = false;
 		}
@@ -217,7 +173,7 @@ void Game::sprint() {
 			cout << "not implemented yet" << endl;
 			//TODO: implement method to load
 		}
-		else if(userInput == 'S') {
+		else if(userInput == 'V') {
 			cout << "not implemente d yet" << endl;
 			//TODO: implement save method
 		}
@@ -238,5 +194,8 @@ void Game::sprint() {
 		}
 		usleep(fps);
 	}
+	set_cursor_mode(true);
+	set_mouse_mode(false);
+	set_raw_mode(false);
 }
 

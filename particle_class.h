@@ -17,8 +17,8 @@ class Particles {
 			WATER,
 			EARTH, 
 			LIGHTNING,
-			DIRT
-			//Dog,
+			DIRT,
+			DOG
 		};
 		
 	private:
@@ -26,8 +26,8 @@ class Particles {
 		float gravity;
 		float veloX;
 		float veloY;
-		int column;
-		int row;
+		int columns;
+		int rows;
 		int lifetime;
 		bool stationary;
 		uint8_t r;

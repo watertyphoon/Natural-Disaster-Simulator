@@ -11,8 +11,8 @@ Particles::Particles() {
 	gravity = 0;
 	veloX = 0;
 	veloY = 0;
-	row = 0;
-	column = 0;
+	rows = 0;
+	columns = 0;
 	stationary = true;
 	lifetime = 0;
 	r = 0;
@@ -21,8 +21,8 @@ Particles::Particles() {
 }
 Particles::Particles(float userGrav, int userColumn, int userRow) {
 	gravity = userGrav;
-	column = userColumn;
-	row = userRow;
+	columns = userColumn;
+	rows = userRow;
 }
 void Particles::setGravity(float userGrav) {
 	gravity = userGrav;
@@ -32,8 +32,8 @@ void Particles::setVelocity(float userX, float userY) {
 	veloY = userY;
 }
 void Particles::setPosition(int userColumn, int userRow) {
-	row = userRow;
-	column = userColumn;
+	rows = userRow;
+	columns = userColumn;
 }
 
 void Particles::setColor(uint8_t red, uint8_t green, uint8_t blue) {
@@ -112,6 +112,14 @@ void Particles::setType(particleType parType) {
 			g = 174;
 			b = 232;
 			break;
+		case particleType::DOG:
+			veloX = 67;
+			veloY = 0;
+			lifetime = 420;
+			stationary = false;
+			r = 67;
+			g = 102;
+			b = 87;
 	}
 }
 void Particles::aging() {
@@ -132,10 +140,10 @@ float Particles::getVeloY() const {
 	return veloY;
 }
 int Particles::getColumn() const {
-	return column;
+	return columns;
 }
 int Particles::getRow() const {
-	return row;
+	return rows;
 }
 int Particles::getLifetime() const {
 	return lifetime;
