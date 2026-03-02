@@ -5,7 +5,13 @@
 #include "world_class.h"
 #include "/public/colors.h"
 #include <list>
+#include "Bridges.h"
+#include "Color.h"
+#include "ColorGrid.h"
 using namespace std;
+using namespace bridges;
+
+
 
 Game::Game() {
 	//screen_size = { get_terminal_size() };	
@@ -35,6 +41,11 @@ void Game::render(World w) {
 	cout << "hello" << endl;
 }*/
 void Game::sprint() {
+	//Bridges Data
+	Bridges bridges(25, "gTayona", "964981320515");
+	bridges.setTitle("Particle Simulation");
+	bridges.setDescription("A simulation where you similate the life and death particles");
+	ColorGrid cg(5, 5, Color("Black"));
 	//here goes the splash screen
 	const auto [ROWS, COLS] = get_terminal_size();
 	int row = 0;
@@ -118,12 +129,14 @@ void Game::sprint() {
 			break;
 		}
 		else if(userInput == 'L') {
-			cout << "not implemented yet" << endl;
+			//cout << "not implemented yet" << endl;
 			//TODO: implement method to load
+			w.load();	
 		}
 		else if(userInput == 'S') {
-			cout << "not implemente d yet" << endl;
+			//cout << "not implemente d yet" << endl;
 			//TODO: implement save method
+			w.save();
 		}
 		else if(userInput == '+') {
 			fps += 100;
@@ -137,7 +150,9 @@ void Game::sprint() {
 			}
 		}
 		else if (userInput == 'D') {
-			cout << "not implemented yet" << endl;
+			cg.set(100, 100, Color("black")); //test	
+			bridges.setDataStructure(&cg);
+			bridges.visualize();
 			//need to implement a bridges and draw method
 		}
 		usleep(fps);

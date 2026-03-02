@@ -4,6 +4,7 @@
 #include "world_class.h"
 #include <vector>         // IWYU pragma: keep
 #include <list>
+#include "ColorGrid.h"
 using namespace std;
 
 
