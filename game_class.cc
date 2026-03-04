@@ -30,8 +30,8 @@ void Game::render(Particles curr) {
 	/*movecursor(0, w.getSize_col());
 	cout << BLUE << "PARTICLE: " << endl;*/
 	movecursor(ROWS, 0);
-	cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
-	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;
+/*	cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
+	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;*/
 	setbgcolor(curr.getRed(),curr.getGreen(),curr.getBlue());
 	movecursor(curr.getRow(), curr.getColumn());
 	cout << ' ' << RESET << endl;
@@ -63,7 +63,7 @@ void Game::sprint() {
 	const auto [ROWS, COLS] = get_terminal_size();
 	int mRow = 0;
 	int mCol = 0;
-	float fps = 100000;
+	float fps = 1'000'000;
 	bool gameState = false;
 	bool isPart = true;
 	char menuInput;
@@ -78,7 +78,12 @@ void Game::sprint() {
 	render(party);
 	usleep(100000);
 	set_mouse_mode(true);
+	/*cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
+	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;*/
 	while(true) {
+		movecursor(0,0);
+		cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
+		cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;
 		set_raw_mode(false);
 		movecursor(0, w.getSize_col()-18);
 		cout << MAGENTA << "PARTICLE: ";
@@ -114,9 +119,9 @@ void Game::sprint() {
 				//Particles curr = temp;
 				render(temp);
 			}
-			cout << "yo mama" << endl;
+
 			w.jiggle_physics(m);
-			cout << "yo dadda" << endl;
+
 		}	
 		//set_mouse_mode(true);
 		if(!gameState) {
@@ -196,7 +201,7 @@ void Game::sprint() {
 			//cout << "not implemente d yet" << endl;
 		}
 		else if(userInput == 'V') {
-			cout << "not implemente d yet" << endl;
+			//cout << "not implemente d yet" << endl;
 			//TODO: implement save method
 			w.save();
 		}

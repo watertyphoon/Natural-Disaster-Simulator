@@ -151,22 +151,22 @@ int World::aliveCount() {
 }
 
 void World::jiggle_physics(vector<vector<char>>& map) {
-	cout << "cock and ball torture" << endl;
+	//cout << "cock and ball torture" << endl;
 	//framerate->FrameRate();
 	int newRow = 0;
 	int newCol = 0;
-	cout << "penis" << endl;
+	//cout << "penis" << endl;
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
-		cout << "cock" << endl;
+		//cout << "cock" << endl;
 		newRow = temp->getRow() + temp->getVeloX();
 		newCol = temp->getColumn() + temp->getVeloY();
-		for(auto& temp2 : allPart) {
-			cout << "dick" << endl;
-			if (newRow == temp2.getRow() && newCol == temp2.getColumn()) {
-				temp->touch(temp2);
+		for(auto temp2 = allPart.begin(); temp2 != allPart.end(); temp2++) {
+			//cout << "dick" << endl;
+			if (newRow == temp2->getRow() && newCol == temp2->getColumn()) {
+				temp->touch(*temp2);
 			}
 		}
-		cout << "balls" << endl;
+		//cout << "balls" << endl;
 		temp->aging();
 		if (temp->getLifetime() == 0) {
 			temp = allPart.erase(temp);
@@ -175,7 +175,7 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 			temp->setPosition(newCol, newRow);
 			temp++;
 		}
-		this->addToList(*temp);
+		//this->addToList(*temp);
 	}
 }
 

@@ -49,7 +49,7 @@ void Particles::setType(particleType parType) {
 		case particleType::AIR:
 			veloX = 1;
 			veloY = 0;
-			lifetime = 15;
+			lifetime = -1;
 			stationary = false;
 			r = 255;
 			g = 255;
@@ -67,7 +67,7 @@ void Particles::setType(particleType parType) {
 		case particleType::DUST:
 			veloX = rand(); //Double check if this is right
 			veloY = 0;
-			lifetime = 15;
+			lifetime = 400;
 			stationary = false;
 			r = 156;
 			g = 139;
@@ -97,7 +97,7 @@ void Particles::setType(particleType parType) {
 		case particleType::LIGHTNING:
 			veloX = 0;
 			veloY = 2;
-			lifetime = 10;
+			lifetime = 200;
 			stationary = false;
 			r = 232;
 			g = 193;
@@ -106,14 +106,14 @@ void Particles::setType(particleType parType) {
 		case particleType::WATER:
 			veloX = 0;
 			veloY = 1;
-			lifetime = 20;
+			lifetime = 420;
 			stationary = false;
 			r = 65;
 			g = 174;
 			b = 232;
 			break;
 		case particleType::DOG:
-			veloX = 67;
+			veloX = 1;
 			veloY = 0;
 			lifetime = 420;
 			stationary = false;
