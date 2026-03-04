@@ -47,8 +47,8 @@ void Particles::setType(particleType parType) {
 	this->type = parType;
 	switch(parType) {//TO DO: implement other type
 		case particleType::AIR:
-			veloX = 1;
-			veloY = 0;
+			veloX = 0;
+			veloY = -1;
 			lifetime = -1;
 			stationary = false;
 			r = 255;
@@ -56,8 +56,8 @@ void Particles::setType(particleType parType) {
 			b = 255;
 			break;
 		case particleType::DIRT:
-			veloX = 0;//velocity is always cell per tick
-			veloY = 1;//positive is falling
+			veloX = 1;//velocity is always cell per tick
+			veloY = 0;//positive is falling
 			lifetime = -1;//-1 means infinite so no die
 			stationary = false;
 			r = 112;
@@ -65,7 +65,7 @@ void Particles::setType(particleType parType) {
 			b = 26;
 			break;
 		case particleType::DUST:
-			veloX = rand(); //Double check if this is right
+			veloX = rand() % 5;  //Double check if this is right
 			veloY = 0;
 			lifetime = 400;
 			stationary = false;
@@ -95,17 +95,17 @@ void Particles::setType(particleType parType) {
 			b = 42;
 			break;
 		case particleType::LIGHTNING:
-			veloX = 0;
-			veloY = 2;
-			lifetime = 200;
+			veloX = 2;
+			veloY = 0;
+			lifetime = 420;
 			stationary = false;
 			r = 232;
 			g = 193;
 			b = 51;
 			break;
 		case particleType::WATER:
-			veloX = 0;
-			veloY = 1;
+			veloX = 1;
+			veloY = 0;
 			lifetime = 420;
 			stationary = false;
 			r = 65;
