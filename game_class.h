@@ -21,7 +21,7 @@ class Game {
 		/*void click(int row, int col) {
 			mouse = {row, col};
 		}*/
-		void render(World &w);
+		void render(Particles curr);
 		void sprint();
 		void FrameRate();
 		void pause();

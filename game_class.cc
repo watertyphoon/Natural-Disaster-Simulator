@@ -23,16 +23,19 @@ Game::Game() {
 void Game::FrameRate() {
 	frame++;
 }
-void Game::render(World &w) {
-	//const auto [ROWS, COLS] = get_terminal_size();
+void Game::render(Particles curr) {
+	const auto [ROWS, COLS] = get_terminal_size();
 	//list <Particles> partList = w.getList();
 	set_cursor_mode(false);
 	/*movecursor(0, w.getSize_col());
 	cout << BLUE << "PARTICLE: " << endl;*/
-	movecursor(w.getSize_row(), 0);
+	movecursor(ROWS, 0);
 	cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;
-	if(!w.getList().empty()){ 
+	setbgcolor(curr.getRed(),curr.getGreen(),curr.getBlue());
+	movecursor(curr.getRow(), curr.getColumn());
+	cout << ' ' << RESET << endl;
+	/*if(!w.getList().empty()){ 
 		for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 			setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
 			movecursor(temp->getRow(), temp->getColumn());
@@ -42,7 +45,7 @@ void Game::render(World &w) {
 			cout << ' ' << RESET << endl;
 			setbgcolor(0,0,0);
 		}
-	}
+	}*/
 }
 /*void click (int row, int col) {
 	//movecursor(row, col);
@@ -72,7 +75,7 @@ void Game::sprint() {
 	list <Particles> partList = w.getList();
 	vector<vector<char>> m = w.getMap();
 	w.printMap();
-	render(w);
+	render(party);
 	usleep(100000);
 	set_mouse_mode(true);
 	while(true) {
@@ -105,11 +108,15 @@ void Game::sprint() {
 			cout << "DOG      " << endl;
 		}
 		cout << RESET << endl;
-		set_raw_mode(true);
 		char userInput = toupper(quick_read());
 		if(gameState) {
-			render(w);
+			for (auto temp : w.getList()) {
+				//Particles curr = temp;
+				render(temp);
+			}
+			cout << "yo mama" << endl;
 			w.jiggle_physics(m);
+			cout << "yo dadda" << endl;
 		}	
 		//set_mouse_mode(true);
 		if(!gameState) {
