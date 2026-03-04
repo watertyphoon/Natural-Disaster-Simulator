@@ -155,6 +155,9 @@ void Particles::touch(Particles victim) {
 	if(this->type == WATER && victim.getType() == FIRE) {
 		this->setType(AIR);
 	}
+	else if(this->type == WATER) {
+		this->setPosition(this->getColumn(), this->getRow() + 1);
+	}
 	else if(this->type == LIGHTNING && victim.getType() == WATER) {
 		victim.setType(LIGHTNING);
 	}

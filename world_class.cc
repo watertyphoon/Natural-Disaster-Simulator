@@ -151,22 +151,29 @@ int World::aliveCount() {
 }
 
 void World::jiggle_physics(vector<vector<char>>& map) {
-	//cout << "cock and ball torture" << endl;
+	const auto [ROW, COL] = get_terminal_size();
+	//cout << "dog" << endl;
 	//framerate->FrameRate();
 	int newRow = 0;
 	int newCol = 0;
-	//cout << "penis" << endl;
+	//cout << "cat" << endl;
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
-		//cout << "cock" << endl;
+		//cout << "taco" << endl;
 		newRow = temp->getRow() + temp->getVeloX();
 		newCol = temp->getColumn() + temp->getVeloY();
+		if(newRow >= ROW || newCol >= COL) {
+			if(temp->getType() == Particles::AIR) {
+				temp->setVelocity(temp->getVeloX() * -1, temp->getVeloY());
+				newRow = temp->getRow() + temp->getVeloX();
+			}
+		}
 		for(auto temp2 = allPart.begin(); temp2 != allPart.end(); temp2++) {
-			//cout << "dick" << endl;
+			//cout << "kitty" << endl;
 			if (newRow == temp2->getRow() && newCol == temp2->getColumn()) {
 				temp->touch(*temp2);
 			}
 		}
-		//cout << "balls" << endl;
+		//cout << "god help ME THEY ARE IN MY WAAALLLS EBFIBEWFIBEOBU" << endl;
 		temp->aging();
 		if (temp->getLifetime() == 0) {
 			temp = allPart.erase(temp);

@@ -32,9 +32,12 @@ void Game::render(Particles curr) {
 	movecursor(ROWS, 0);
 /*	cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;*/
+	setbgcolor(0,0,0);
+	movecursor(curr.getRow() - curr.getVeloX(), curr.getColumn() - curr.getVeloY());
+	cout << ' ';
 	setbgcolor(curr.getRed(),curr.getGreen(),curr.getBlue());
 	movecursor(curr.getRow(), curr.getColumn());
-	cout << ' ' << RESET << endl;
+	cout << ' ' << RESET;
 	/*if(!w.getList().empty()){ 
 		for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 			setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
@@ -63,9 +66,10 @@ void Game::sprint() {
 	const auto [ROWS, COLS] = get_terminal_size();
 	int mRow = 0;
 	int mCol = 0;
-	float fps = 1'000'000;
+	float fps = 100'000;
 	bool gameState = false;
 	bool isPart = true;
+	//bool addParty = false;
 	char menuInput;
 	int scroll = 0;
 	set_raw_mode(true);
@@ -75,9 +79,9 @@ void Game::sprint() {
 	list <Particles> partList = w.getList();
 	vector<vector<char>> m = w.getMap();
 	w.printMap();
-	render(party);
+	//render(party);
 	usleep(100000);
-	set_mouse_mode(true);
+	//set_mouse_mode(true);
 	/*cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;*/
 	while(true) {
@@ -125,13 +129,17 @@ void Game::sprint() {
 		}	
 		//set_mouse_mode(true);
 		if(!gameState) {
+			set_mouse_mode(true);
 			on_mousedown([&](int row, int col){
 					movecursor(row, col);
+					/*if(mRow == row && mCol == col) {
+					addParty = false;
+					}*/
 					mRow = row;
 					mCol = col;
 					});
-			movecursor(ROWS/2, COLS/2);
-			cout << mRow << " " << mCol << endl;
+			//movecursor(ROWS/2, COLS/2);
+			//cout << mRow << " " << mCol << endl;
 			if(scroll == 0) {
 				party.setType(Particles::FIRE);
 				party.setPosition(mCol, mRow);
@@ -164,8 +172,11 @@ void Game::sprint() {
 				party.setType(Particles::DOG);
 				party.setPosition(mCol, mRow);
 			}
-			cout << party.getType() << " " << party.getRow() << " " << party.getColumn() << endl; 
+			//cout << party.getType() << " " << party.getRow() << " " << party.getColumn() << endl; 
 			w.addToList(party);
+			set_mouse_mode(true);
+			setbgcolor(party.getRed(), party.getGreen(), party.getBlue());
+			cout << ' ' << RESET;
 		}
 		if(userInput == 'W' || userInput == UP_ARROW){
 			if(scroll ==  7) {
