@@ -65,8 +65,8 @@ void Particles::setType(particleType parType) {
 			b = 26;
 			break;
 		case particleType::DUST:
-			veloX = rand() % 5;  //Double check if this is right
-			veloY = 0;
+			veloX = 0;  //Double check if this is right
+			veloY = rand() % 2;
 			lifetime = 400;
 			stationary = false;
 			r = 156;
