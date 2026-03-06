@@ -163,10 +163,13 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 		//cout << "taco" << endl;
 		newRow = temp->getRow() + temp->getVeloX();
 		newCol = temp->getColumn() + temp->getVeloY();
-		if(newRow >= ROW - 1 || newCol >= COL - 1 || newRow <= 0 || newCol <=0) {
+		if(newRow >= ROW || newCol >= COL || newRow <= 0 || newCol <= 0) {
 			if(temp->getType() == Particles::AIR) {
 				temp->setVelocity(temp->getVeloX(), temp->getVeloY() * -1);
 				newRow = temp->getRow() + temp->getVeloX();
+			}
+			else{
+				temp->setVelocity(0,0);
 			}
 		}
 		for(auto temp2 = allPart.begin(); temp2 != allPart.end(); temp2++) {
@@ -183,7 +186,9 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 			cout << " " << RESET;
 			temp = allPart.erase(temp);
 		}
-		else {
+		else {//the reason for these two lines for now is to hopefully fixe touch
+			newRow = temp->getRow() + temp->getVeloX();
+			newCol = temp->getColumn() + temp->getVeloY();
 			temp->setPosition(newCol, newRow);
 			temp++;
 		}

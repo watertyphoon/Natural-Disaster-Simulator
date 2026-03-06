@@ -1,4 +1,5 @@
 #include "/public/read.h" // IWYU pragma: keep
+#include "/public/colors.h"
 #include <cstdint>
 #include <vector>// IWYU pragma: keep
 #include "particle_class.h"
@@ -158,9 +159,15 @@ void Particles::touch(Particles victim) {
 	if(this->type == WATER && victim.getType() == FIRE) {
 		this->setType(AIR);
 	}
-	else if(this->type == WATER) {
-		this->setPosition(this->getColumn(), this->getRow() + 1);
+	if(this->type == DIRT) {
+		this->setVelocity(0, 0);
 	}
+	/*else if(this->type == WATER) {
+		movecursor(this->getRow(), this->getColumn());
+		setbgcolor(0,0,0);
+		cout << " " << RESET;
+		this->setPosition(this->getColumn(), this->getRow() - 1);
+	}*/
 	else if(this->type == LIGHTNING && victim.getType() == WATER) {
 		victim.setType(LIGHTNING);
 	}
