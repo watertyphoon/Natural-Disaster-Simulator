@@ -73,6 +73,9 @@ void Game::sprint() {
 	//bool addParty = false;
 	char menuInput;
 	int scroll = 0;
+	int rRow = 0;
+	int rCol = 0;
+	bool rClick = false;
 	set_raw_mode(true);
 	show_cursor(false);
 	World w;
@@ -138,8 +141,26 @@ void Game::sprint() {
 					mRow = row;
 					mCol = col;
 					});
+			/*on_mouseup([&](int r, int c){
+					//movecursor(r, c);
+					rClick = true;
+					rRow = r;
+					rCol = c;
+					});*/
 			//movecursor(ROWS/2, COLS/2);
 			//cout << mRow << " " << mCol << endl;
+			if(click == true) {
+				for (auto dead = w.getList().begin(); dead != w.getList().end(); dead++) {
+					if(dead->getRow() == mRow && dead->getColumn() == mCol) {
+						w.getList().erase(dead);
+						movecursor(mRow, mCol);
+						setbgcolor(0, 0, 0);
+						cout << " " << RESET;
+						click = false;
+						break;
+					}
+				}
+			}
 			if(scroll == 0) {
 				party.setType(Particles::FIRE);
 				party.setPosition(mCol, mRow);
