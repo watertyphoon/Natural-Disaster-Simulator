@@ -156,11 +156,17 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 	const auto [ROW, COL] = get_terminal_size();
 	//cout << "dog" << endl;
 	//framerate->FrameRate();
+	int coolio;
 	int newRow = 0;
 	int newCol = 0;
 	//cout << "cat" << endl;
 	for(auto temp = allPart.begin(); temp != allPart.end();) {
 		//cout << "taco" << endl;
+		if(temp->getType() == Particles::DUST) {
+			if((rand()%8) == 0) {
+				temp->setVelocity(temp->getVeloX(), temp->getVeloY() * -1);
+			}
+		}
 		newRow = temp->getRow() + temp->getVeloX();
 		newCol = temp->getColumn() + temp->getVeloY();
 		if(newRow >= ROW || newCol >= COL || newRow <= 0 || newCol <= 0) {

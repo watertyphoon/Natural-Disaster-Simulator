@@ -73,7 +73,8 @@ void Particles::setType(particleType parType) {
 			break;
 		case particleType::DUST:
 			veloX = 0;  //Double check if this is right
-			veloY = rand() % 2;
+			//if(rand()%2) {coolio = -1;}
+			veloY = 1;
 			lifetime = 400;
 			stationary = false;
 			r = 156;
