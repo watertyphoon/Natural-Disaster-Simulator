@@ -1,6 +1,7 @@
 #include "/public/read.h" // IWYU pragma: keep
 #include "/public/colors.h"
 #include <cstdint>
+#include <unistd.h>
 #include <vector>// IWYU pragma: keep
 #include "particle_class.h"
 #include "world_class.h"
@@ -48,7 +49,8 @@ void Particles::setLifetime(int life) {
 }
 
 void Particles::setType(particleType parType) {
-	srand(time(0));
+	//srand(time(0));
+	int coolio = 0;
 	this->type = parType;
 	switch(parType) {//TO DO: implement other type
 		case particleType::AIR:
@@ -117,14 +119,24 @@ void Particles::setType(particleType parType) {
 			g = 174;
 			b = 232;
 			break;
-		case particleType::DOG:
+		/*case particleType::DOG:
 			veloX = 1;
 			veloY = 0;
 			lifetime = 420;
 			stationary = false;
 			r = 67;
 			g = 102;
-			b = 87;
+			b = 87;*/
+		case particleType::MEGUMIN:
+			if(rand()%2 == 0){coolio = -1;}//this coin flips which direction dynamight goes to
+			veloX = 1;
+			veloY = 1 * coolio;
+			lifetime = 20;
+			stationary = false;
+			r = 255;
+			g = 0;
+			b = 255;
+			break;
 	}
 }
 /*void Particles::aging() {
@@ -154,6 +166,209 @@ int Particles::getLifetime() const {
 }
 Particles::particleType Particles::getType() const {
 	return type;
+}
+void Particles::EXPLOSION() {
+	int r = getRow();
+	int c = getColumn();
+	movecursor(r,c);
+	cout << " ";
+	usleep(200'000);
+	setbgcolor(219, 22, 22);
+	movecursor(r,c+1);
+	cout << " ";
+	movecursor(r+1,c);
+	cout << " ";
+	movecursor(r-1,c);
+	cout << " ";
+	movecursor(r, c-1);
+	cout << " " << RESET;
+	usleep(200'000);
+	setbgcolor(255, 165, 0);
+	movecursor(r-1, c+2);
+	cout << " ";
+	movecursor(r+2, c-1);
+	cout << " ";
+	movecursor(r-2, c+1);
+	cout << " ";
+	movecursor(r+1, c-2);
+	cout << " ";
+	movecursor(r+1, c+2);
+	cout << " ";
+	movecursor(r+2, c+1);
+	cout << " ";
+	movecursor(r-1, c-2);
+	cout << " ";
+	movecursor(r-2, c-1);
+	cout << " ";
+	movecursor(r+3, c);//bottom orange
+	cout << " ";
+	movecursor(r-3, c);//top orange
+	cout << " ";
+	movecursor(r, c+3);
+	cout << " ";
+	movecursor(r, c-3);
+	cout << " " << RESET;
+	usleep(300'000);
+	setbgcolor(255,255,255);
+	movecursor(r-2, c+3);
+	cout << " ";
+	movecursor(r+2, c-3);
+	cout << " ";
+	movecursor(r+2, c+3);
+	cout << " ";
+	movecursor(r-2, c-3);
+	cout << " ";
+	movecursor(r-3, c+2);
+	cout << " ";
+	movecursor(r-3, c-2);
+	cout << " ";
+	movecursor(r+3, c+2);
+	cout << " ";
+	movecursor(r+3, c-2);
+	cout << " ";
+	movecursor(r-1, c+4);
+	cout << " ";
+	movecursor(r-1, c-4);
+	cout << " ";
+	movecursor(r+1, c+4);
+	cout << " ";
+	movecursor(r+1, c-4);
+	cout << " ";
+	movecursor(r, c+5);
+	cout << " ";
+	movecursor(r, c-5);
+	cout << " ";
+	movecursor(r-4, c+1);
+	cout << " ";
+	movecursor(r-4, c-1);
+	cout << " ";
+	movecursor(r+4, c-1);
+	cout << " ";
+	movecursor(r+4, c+1);
+	cout << " ";
+	movecursor(r-3, c+4);
+	cout << " ";
+	movecursor(r-3, c-4);
+	cout << " ";
+	movecursor(r+3, c +4);
+	cout << " ";
+	movecursor(r+3, c-4);
+	cout << " ";
+	movecursor(r-2, c+5);
+	cout << " ";
+	movecursor(r-2, c-5);
+	cout << " ";
+	movecursor(r+2, c-5);
+	cout << " ";
+	movecursor(r+2, c+5);
+	cout << " ";
+	movecursor(r-1, c+6);
+	cout << " ";
+	movecursor(r-1, c-6);
+	cout << " ";
+	movecursor(r+1, c+6);
+	cout << " ";
+	movecursor(r+1, c-6);
+	cout << " " << RESET;
+	usleep(500'000);
+	//erases explosion particles
+	movecursor(r,c+1);
+	cout << " ";
+	movecursor(r+1,c);
+	cout << " ";
+	movecursor(r-1,c);
+	cout << " ";
+	movecursor(r, c-1);
+	cout << " ";
+	//setbgcolor(255, 165, 0);
+	usleep(200'000);
+	movecursor(r-1, c+2);
+	cout << " ";
+	movecursor(r+2, c-1);
+	cout << " ";
+	movecursor(r-2, c+1);
+	cout << " ";
+	movecursor(r+1, c-2);
+	cout << " ";
+	movecursor(r+1, c+2);
+	cout << " ";
+	movecursor(r+2, c+1);
+	cout << " ";
+	movecursor(r-1, c-2);
+	cout << " ";
+	movecursor(r-2, c-1);
+	cout << " ";
+	movecursor(r+3, c);//bottom orange
+	cout << " ";
+	movecursor(r-3, c);//top orange
+	cout << " ";
+	movecursor(r, c+3);
+	cout << " ";
+	movecursor(r, c-3);
+	cout << " ";
+	//setbgcolor(255,255,255);
+	usleep(200'000);
+	movecursor(r-2, c+3);
+	cout << " ";
+	movecursor(r+2, c-3);
+	cout << " ";
+	movecursor(r+2, c+3);
+	cout << " ";
+	movecursor(r-2, c-3);
+	cout << " ";
+	movecursor(r-3, c+2);
+	cout << " ";
+	movecursor(r-3, c-2);
+	cout << " ";
+	movecursor(r+3, c+2);
+	cout << " ";
+	movecursor(r+3, c-2);
+	cout << " ";
+	movecursor(r-1, c+4);
+	cout << " ";
+	movecursor(r-1, c-4);
+	cout << " ";
+	movecursor(r+1, c+4);
+	cout << " ";
+	movecursor(r+1, c-4);
+	cout << " ";
+	movecursor(r, c+5);
+	cout << " ";
+	movecursor(r, c-5);
+	cout << " ";
+	movecursor(r-4, c+1);
+	cout << " ";
+	movecursor(r-4, c-1);
+	cout << " ";
+	movecursor(r+4, c-1);
+	cout << " ";
+	movecursor(r+4, c+1);
+	cout << " ";
+	movecursor(r-3, c+4);
+	cout << " ";
+	movecursor(r-3, c-4);
+	cout << " ";
+	movecursor(r+3, c +4);
+	cout << " ";
+	movecursor(r+3, c-4);
+	cout << " ";
+	movecursor(r-2, c+5);
+	cout << " ";
+	movecursor(r-2, c-5);
+	cout << " ";
+	movecursor(r+2, c-5);
+	cout << " ";
+	movecursor(r+2, c+5);
+	cout << " ";
+	movecursor(r-1, c+6);
+	cout << " ";
+	movecursor(r-1, c-6);
+	cout << " ";
+	movecursor(r+1, c+6);
+	cout << " ";
+	movecursor(r+1, c-6);
+	cout << " ";
+	usleep(100'000);
 }
 void Particles::touch(Particles victim) {
 	if(this->type == WATER && victim.getType() == FIRE) {

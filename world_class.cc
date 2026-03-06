@@ -181,6 +181,9 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 		//cout << "god help ME THEY ARE IN MY WAAALLLS EBFIBEWFIBEOBU" << endl;
 		this->aging(*temp);
 		if (temp->getLifetime() == 0) {
+			if(temp->getType() == Particles::MEGUMIN) {
+				temp->EXPLOSION();
+			}
 			movecursor(temp->getRow(), temp->getColumn());
 			setbgcolor(0,0,0);
 			cout << " " << RESET;

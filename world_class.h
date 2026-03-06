@@ -7,7 +7,7 @@
 using namespace std;
 
 class Game;
-
+//maybe explosion in here
 class World {
 	private:
 		list <Particles> allPart;

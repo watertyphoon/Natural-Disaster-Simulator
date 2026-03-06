@@ -37,7 +37,7 @@ void Game::render(Particles curr) {
 	cout << ' ';
 	setbgcolor(curr.getRed(),curr.getGreen(),curr.getBlue());
 	movecursor(curr.getRow(), curr.getColumn());
-	cout << ' ' << RESET;
+	cout << ' ' << RESET << endl;
 	/*if(!w.getList().empty()){ 
 		for(auto temp = w.getList().begin(); temp != w.getList().end();) {
 			setbgcolor(temp->getRed(),temp->getGreen(),temp->getBlue());
@@ -84,7 +84,7 @@ void Game::sprint() {
 	vector<vector<char>> m = w.getMap();
 	w.printMap();
 	//render(party);
-	usleep(100000);
+	usleep(100'000);
 	//set_mouse_mode(true);
 	/*cout << GREEN << "START(E) PAUSE(P) QUIT(Q) LOAD(L) SAVE(V) INCREASE_FRAME_RATE(+)";
 	cout << " DECREASE_FRAME_RATE(-) DRAW(d)" << RESET << endl;*/
@@ -118,7 +118,7 @@ void Game::sprint() {
 			cout << "DUST     " << endl;
 		}
 		else if (scroll == 7) {
-			cout << "DOG      " << endl;
+			cout << "MEGUMIN  " << endl;
 		}
 		cout << RESET << endl;
 		char userInput = toupper(quick_read());
@@ -190,7 +190,7 @@ void Game::sprint() {
 				party.setPosition(mCol, mRow);
 			}
 			else if(scroll == 7) {
-				party.setType(Particles::DOG);
+				party.setType(Particles::MEGUMIN);
 				party.setPosition(mCol, mRow);
 			}
 			//cout << party.getType() << " " << party.getRow() << " " << party.getColumn() << endl; 

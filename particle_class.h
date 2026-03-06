@@ -18,7 +18,8 @@ class Particles {
 			EARTH, 
 			LIGHTNING,
 			DIRT,
-			DOG
+			MEGUMIN
+			//DOG
 		};
 		
 	private:
@@ -56,6 +57,7 @@ class Particles {
 		uint8_t getBlue() const;
 		uint8_t getGreen() const;
 		void setLifetime(int life);
+		void EXPLOSION();
 		//Are they voids? Doesn't specify
 		//void jiggle_physics(vector<vector<char>>& map);
 		//void touch();//touch who????
