@@ -167,6 +167,9 @@ void Particles::touch(Particles victim) {
 	else if(this->type == LIGHTNING && victim.getType() == EARTH) {
 		victim.setType(DIRT);
 	}
+	else if(this->type == AIR) {
+		this->setVelocity(this->getVeloX(), this->getVeloY() * -1);
+	}
 }
 
 uint8_t Particles::getRed() const {

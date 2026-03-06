@@ -69,6 +69,7 @@ void Game::sprint() {
 	float fps = 100'000;
 	bool gameState = false;
 	bool isPart = true;
+	bool click = false;
 	//bool addParty = false;
 	char menuInput;
 	int scroll = 0;
@@ -133,6 +134,7 @@ void Game::sprint() {
 					/*if(mRow == row && mCol == col) {
 					addParty = false;
 					}*/
+					click = true;
 					mRow = row;
 					mCol = col;
 					});
@@ -171,10 +173,15 @@ void Game::sprint() {
 				party.setPosition(mCol, mRow);
 			}
 			//cout << party.getType() << " " << party.getRow() << " " << party.getColumn() << endl; 
-			w.addToList(party);
-			set_mouse_mode(true);
-			setbgcolor(party.getRed(), party.getGreen(), party.getBlue());
-			cout << ' ' << RESET;
+			//if(party.getRow() != w.getList().end()->getRow() || party.getColumn() != w.getList().end()->getColumn()) {
+			if (click) {
+				w.addToList(party);
+			//set_mouse_mode(true);
+				setbgcolor(party.getRed(), party.getGreen(), party.getBlue());
+				cout << ' ' << RESET;
+				click = false;
+			}
+			//}
 		}
 		if(userInput == 'W' || userInput == UP_ARROW){
 			if(scroll ==  7) {

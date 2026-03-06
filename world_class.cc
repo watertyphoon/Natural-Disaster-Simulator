@@ -163,9 +163,9 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 		//cout << "taco" << endl;
 		newRow = temp->getRow() + temp->getVeloX();
 		newCol = temp->getColumn() + temp->getVeloY();
-		if(newRow >= ROW || newCol >= COL) {
+		if(newRow >= ROW - 1 || newCol >= COL - 1 || newRow <= 0 || newCol <=0) {
 			if(temp->getType() == Particles::AIR) {
-				temp->setVelocity((temp->getVeloX() * -1), temp->getVeloY());
+				temp->setVelocity(temp->getVeloX(), temp->getVeloY() * -1);
 				newRow = temp->getRow() + temp->getVeloX();
 			}
 		}
@@ -205,13 +205,12 @@ void World::remove(Particles* tempParty) {
 }
 
 void World::aging(Particles &curr) {
-	srand(67);
 	int sparky = rand()%2;
 	curr.setLifetime(curr.getLifetime() - 1);
 	if(curr.getType() == Particles::FIRE) {
-		Particles spark;
-		spark.setType(Particles::LIGHTNING);
 		if(!(rand()%20)) {//this means that the code only runs 1 in 20 times
+			Particles spark;
+			spark.setType(Particles::LIGHTNING);
 			if(sparky) {sparky = -1;}//coirnflips of which side the lightning appears
 			else {sparky = 1;}
 			spark.setPosition(curr.getColumn() + sparky, curr.getRow());
