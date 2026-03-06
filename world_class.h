@@ -47,4 +47,5 @@ class World {
 		int particleSize();
 		int aliveCount();
 		void jiggle_physics(vector<vector<char>>& map);
+		void aging(Particles &curr);
 };

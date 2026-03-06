@@ -42,6 +42,10 @@ void Particles::setColor(uint8_t red, uint8_t green, uint8_t blue) {
 	b = blue;
 }
 
+void Particles::setLifetime(int life) {
+	lifetime = life;
+}
+
 void Particles::setType(particleType parType) {
 	srand(time(0));
 	this->type = parType;
@@ -76,7 +80,7 @@ void Particles::setType(particleType parType) {
 		case particleType::FIRE:
 			veloX = 0;
 			veloY = 0;
-			lifetime = -1;
+			lifetime = 100;
 			stationary = true;
 			r = 219;
 			g = 22;
@@ -97,7 +101,7 @@ void Particles::setType(particleType parType) {
 		case particleType::LIGHTNING:
 			veloX = 2;
 			veloY = 0;
-			lifetime = 420;
+			lifetime = 60;
 			stationary = false;
 			r = 232;
 			g = 193;
@@ -122,14 +126,13 @@ void Particles::setType(particleType parType) {
 			b = 87;
 	}
 }
-void Particles::aging() {
+/*void Particles::aging() {
 	lifetime = lifetime - 1;
-	if (this-> type == FIRE) {
+	if (this->type == FIRE) {
 		Particles spark;
 		spark.setType(LIGHTNING);
 	}
-
-}
+}*/
 float Particles::getGravity() const {
 	return gravity;
 }

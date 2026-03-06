@@ -119,13 +119,11 @@ void Game::sprint() {
 		cout << RESET << endl;
 		char userInput = toupper(quick_read());
 		if(gameState) {
+			w.jiggle_physics(m);
 			for (auto temp : w.getList()) {
 				//Particles curr = temp;
 				render(temp);
 			}
-
-			w.jiggle_physics(m);
-
 		}	
 		//set_mouse_mode(true);
 		if(!gameState) {

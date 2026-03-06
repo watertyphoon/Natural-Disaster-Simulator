@@ -47,7 +47,7 @@ class Particles {
 		int getColumn() const;
 		int getRow() const;
 		int getLifetime() const;
-		void aging();
+		//void aging();
 		void touch(Particles victim);
 		void setType(particleType parType);
 		particleType getType() const;
@@ -55,6 +55,7 @@ class Particles {
 		uint8_t getRed() const;
 		uint8_t getBlue() const;
 		uint8_t getGreen() const;
+		void setLifetime(int life);
 		//Are they voids? Doesn't specify
 		//void jiggle_physics(vector<vector<char>>& map);
 		//void touch();//touch who????

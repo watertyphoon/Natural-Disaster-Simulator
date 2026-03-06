@@ -7,8 +7,10 @@
 #include <ctime>
 #include "game_class.h"
 #include <algorithm>
+#include <cstdlib>
 using namespace std;
 
+//srand(time(NULL));
 World::World() {
 	const auto [ROW, COL] = get_terminal_size();
 	size_row = ROW;
@@ -163,7 +165,7 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 		newCol = temp->getColumn() + temp->getVeloY();
 		if(newRow >= ROW || newCol >= COL) {
 			if(temp->getType() == Particles::AIR) {
-				temp->setVelocity(temp->getVeloX() * -1, temp->getVeloY());
+				temp->setVelocity((temp->getVeloX() * -1), temp->getVeloY());
 				newRow = temp->getRow() + temp->getVeloX();
 			}
 		}
@@ -174,8 +176,11 @@ void World::jiggle_physics(vector<vector<char>>& map) {
 			}
 		}
 		//cout << "god help ME THEY ARE IN MY WAAALLLS EBFIBEWFIBEOBU" << endl;
-		temp->aging();
+		this->aging(*temp);
 		if (temp->getLifetime() == 0) {
+			movecursor(temp->getRow(), temp->getColumn());
+			setbgcolor(0,0,0);
+			cout << " " << RESET;
 			temp = allPart.erase(temp);
 		}
 		else {
@@ -197,4 +202,20 @@ void World::addToList(Particles &tempPart) {
 void World::remove(Particles* tempParty) {
 	Particles* itParty = &*tempParty;
 	//allPart.erase(itParty);
+}
+
+void World::aging(Particles &curr) {
+	srand(67);
+	int sparky = rand()%2;
+	curr.setLifetime(curr.getLifetime() - 1);
+	if(curr.getType() == Particles::FIRE) {
+		Particles spark;
+		spark.setType(Particles::LIGHTNING);
+		if(!(rand()%20)) {//this means that the code only runs 1 in 20 times
+			if(sparky) {sparky = -1;}//coirnflips of which side the lightning appears
+			else {sparky = 1;}
+			spark.setPosition(curr.getColumn() + sparky, curr.getRow());
+			this->addToList(spark);
+		}
+	}
 }
